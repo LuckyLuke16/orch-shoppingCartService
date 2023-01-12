@@ -44,4 +44,13 @@ public class ShoppingCartController implements ShoppingCartOperations {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    public void deleteCartOfUser(String user) {
+        try {
+            this.shoppingCartItemService.deleteCart(user);
+        } catch( Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
 }

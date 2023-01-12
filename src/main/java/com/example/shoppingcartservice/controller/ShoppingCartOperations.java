@@ -15,4 +15,7 @@ public interface ShoppingCartOperations {
     @PostMapping("/{itemId}")
     int addShoppingCartItemFromUser(@PathVariable int itemId, @RequestParam String user);
 
+    @DeleteMapping("/cart")
+    void deleteCartOfUser(@RequestParam String user);
+
 }
