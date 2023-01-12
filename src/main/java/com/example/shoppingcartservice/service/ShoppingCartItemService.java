@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -111,5 +112,15 @@ public class ShoppingCartItemService {
         this.shoppingCartItemRepository.deleteById(new ShoppingCartItemId(itemToAdd.getUserId(), itemToAdd.getProductId()));
         itemToAdd.setQuantity(itemToAdd.getQuantity() + 1);
         this.shoppingCartItemRepository.save(itemToAdd);
+    }
+
+    @Transactional
+    public void deleteCart(String userId) {
+        try {
+            this.shoppingCartItemRepository.deleteAllByUserId(userId);
+            logger.info("Shopping cart of user {} was deleted", userId);
+        } catch (Exception e) {
+            logger.warn("Shopping Cart deletion of user {} failed", userId, e);
+        }
     }
 }
